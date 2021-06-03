@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "120468371198",
+    "firebase_url": "https://ordereasy-4510e.firebaseio.com",
+    "project_id": "ordereasy-4510e",
+    "storage_bucket": "ordereasy-4510e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120468371198:android:b4165f89f77d28755a97af",
+        "android_client_info": {
+          "package_name": "com.example.ordereasy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120468371198-sr3s08tg3kgkebpftov5rlubgoecf40r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoduU1a-aP2eGgVA1RI81L9qsDpjGWFGk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120468371198-sr3s08tg3kgkebpftov5rlubgoecf40r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
