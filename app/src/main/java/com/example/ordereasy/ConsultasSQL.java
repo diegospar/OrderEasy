@@ -10,8 +10,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ConsultasSQL {
@@ -116,17 +118,34 @@ public class ConsultasSQL {
     }
 
     public Object prueba() {
+        ArrayList<Platillo> menu = new ArrayList<>();
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("platillos").child("R001").get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 objeto = "ERROR";
-            }
-            else {
-                //objeto = task.getResult().getValue(;
-                for (DataSnapshot snapshot: task.getResult().getChildren()) {
-                    //Job_Class job = jobSnapshot.getValue(Job_Class.class);
-                    Log.d("Prueba", snapshot.getValue().toString());
+            } else {
+                for (DataSnapshot categoria: task.getResult().getChildren()) {
+                    Platillo mCategoria = new Platillo();
+                    mCategoria.nombre = categoria.getKey();
+                    mCategoria.viewType = 1;
+                    menu.add(mCategoria);
+                    for (DataSnapshot platillo: categoria.getChildren()) {
+                        Platillo temp = platillo.getValue(Platillo.class);
+                        temp.viewType = 2;
+                        menu.add(temp);
+                    }
+
+                }
+
+                for (Platillo mPlatillo: menu) {
+                    String text = "";
+                    if (mPlatillo.viewType == 1) {
+                        text = "Categoria: " + mPlatillo.nombre;
+                    } else {
+                        text = "Producto: " + mPlatillo.nombre;
+                    }
+                    Log.d("Prueba -->", text);
                 }
             }
         });
