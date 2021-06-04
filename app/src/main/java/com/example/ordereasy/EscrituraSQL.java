@@ -31,7 +31,7 @@ public class EscrituraSQL {
             }
             else {
                idOrden = Integer.parseInt(String.valueOf(task.getResult().getChildrenCount() + 1));
-                mDatabase.child("ordenes").child(restaurante).child(String.valueOf(idOrden)).setValue(orden);
+                mDatabase.child("ordenes").child(restaurante).child("O029").setValue(orden);
             }
         });
 

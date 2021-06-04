@@ -117,11 +117,11 @@ public class ConsultasSQL {
         return respuesta;
     }
 
-    public Object prueba() {
+    public ArrayList<Platillo> menu(String idRestaurante) {
         ArrayList<Platillo> menu = new ArrayList<>();
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("platillos").child("R001").get().addOnCompleteListener(task -> {
+        mDatabase.child("platillos").child(idRestaurante).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 objeto = "ERROR";
             } else {
@@ -138,17 +138,8 @@ public class ConsultasSQL {
 
                 }
 
-                for (Platillo mPlatillo: menu) {
-                    String text = "";
-                    if (mPlatillo.viewType == 1) {
-                        text = "Categoria: " + mPlatillo.nombre;
-                    } else {
-                        text = "Producto: " + mPlatillo.nombre;
-                    }
-                    Log.d("Prueba -->", text);
-                }
             }
         });
-        return objeto;
+        return menu;
     }
 }

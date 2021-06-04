@@ -145,9 +145,6 @@ public class PantallaInicio extends AppCompatActivity {
         if (result != null) {
             if (result.getContents() == null) {
 
-                escrituras.orden("R001",orden);
-                consultas.prueba();
-
                 Toast.makeText(PantallaInicio.this, "CANCELASTE EL ESCANEO", Toast.LENGTH_SHORT).show();
             } else {
                if(result.getContents().substring(0,4).equals("OREA")){
@@ -180,7 +177,7 @@ public class PantallaInicio extends AppCompatActivity {
     }
     public boolean estaOcupado(String restaurante, String mesa){
 
-        if(Integer.parseInt(consultas.mesa(restaurante,mesa,"estado")) == 0){
+        if(Integer.parseInt(consultas.mesa(restaurante,mesa,"estado")) == 1){
             return false;
         }else
             return true;
@@ -189,7 +186,7 @@ public class PantallaInicio extends AppCompatActivity {
 
 
     public String hour(){
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String dateformatted = dateFormat.format(date);
         return dateformatted;
