@@ -15,41 +15,42 @@ import java.util.List;
 
 public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    ArrayList<Platillo> menú;
+    private  ArrayList<Platillo> menús;
 
-    public MenuAdapter(ArrayList<Platillo> menú){
-    this.menú = menú;
+    public MenuAdapter( ArrayList<Platillo> menú){
+        this.menús = menú;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == 1) {
-            return new ViewHolderCategoria(LayoutInflater.from(parent.getContext()).inflate(R.layout.categorias,parent,false));
-        } else {
+        if (viewType == 2) {
             return new ViewHolderPlatillo(LayoutInflater.from(parent.getContext()).inflate(R.layout.platillos,parent,false));
+        } else{
+            return new ViewHolderCategoria(LayoutInflater.from(parent.getContext()).inflate(R.layout.categorias,parent,false));
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        for (Platillo mPlatillo: menú) {
-            if (mPlatillo.viewType == 1) {
-                ((ViewHolderCategoria) holder).setCategoria(mPlatillo);
-            } else {
-                ((ViewHolderPlatillo) holder).setPlatillo(mPlatillo);
-            }
-        }
 
+            if (getItemViewType(position) == 2) {
+                ((ViewHolderPlatillo) holder).setPlatillo(menús.get(position));
+            } else
+                ((ViewHolderCategoria) holder).setCategoria(menús.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return menús.size();
+    }
+    @Override
+    public int getItemViewType (int position){
+        return menús.get(position).viewType;
     }
 
 
-    public class ViewHolderCategoria extends RecyclerView.ViewHolder{
+    static class ViewHolderCategoria extends RecyclerView.ViewHolder{
         public TextView categoria;
         public ViewHolderCategoria(@NonNull View itemView) {
             super(itemView);
@@ -61,7 +62,7 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
     }
 
-    public class ViewHolderPlatillo extends RecyclerView.ViewHolder {
+    static class ViewHolderPlatillo extends RecyclerView.ViewHolder {
 
         public TextView nombre, precio, descripcion;
         public Button botonAgregar,botonQuitar;
@@ -77,8 +78,23 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         void setPlatillo(Platillo platillo){
             nombre.setText(platillo.nombre);
-            precio.setText(platillo.precio);
+            precio.setText("$" + platillo.precio);
             descripcion.setText(platillo.descripcion);
+            botonAgregar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    botonAgregar.setVisibility(View.GONE);
+                    botonQuitar.setVisibility(View.VISIBLE);
+                }
+            });
+
+            botonQuitar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    botonQuitar.setVisibility(View.GONE);
+                    botonAgregar.setVisibility(View.VISIBLE);
+                }
+            });
         }
 
     }

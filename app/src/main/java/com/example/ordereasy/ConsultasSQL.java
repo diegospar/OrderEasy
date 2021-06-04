@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ConsultasSQL {
-        public String respuesta =".";
+        public String respuesta ="Categoría";
         public Object objeto;
 
 
@@ -35,7 +35,7 @@ public class ConsultasSQL {
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("categorias").child(idRestaurante).child(idCategoría).child(campo).get().addOnCompleteListener(task -> {
+        mDatabase.child("categorias").child(idRestaurante).child(idCategoría).child(campo).get().addOnCompleteListener( task -> {
             if (!task.isSuccessful()) {
                 respuesta = "ERROR";
             }
@@ -117,29 +117,5 @@ public class ConsultasSQL {
         return respuesta;
     }
 
-    public ArrayList<Platillo> menu(String idRestaurante) {
-        ArrayList<Platillo> menu = new ArrayList<>();
-        DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("platillos").child(idRestaurante).get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                objeto = "ERROR";
-            } else {
-                for (DataSnapshot categoria: task.getResult().getChildren()) {
-                    Platillo mCategoria = new Platillo();
-                    mCategoria.nombre = categoria.getKey();
-                    mCategoria.viewType = 1;
-                    menu.add(mCategoria);
-                    for (DataSnapshot platillo: categoria.getChildren()) {
-                        Platillo temp = platillo.getValue(Platillo.class);
-                        temp.viewType = 2;
-                        menu.add(temp);
-                    }
 
-                }
-
-            }
-        });
-        return menu;
-    }
 }

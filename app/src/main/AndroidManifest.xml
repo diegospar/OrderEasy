@@ -11,21 +11,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OrderEasy">
+        <activity android:name=".Sesion"
+            android:theme="@style/Theme.Pcarga"
+            android:screenOrientation="locked"
+            ></activity>
         <activity
             android:name=".Menu"
-            android:theme="@style/Theme.Pcarga" ></activity>
+            android:screenOrientation="locked"
+            android:theme="@style/Theme.Pcarga" />
         <activity
             android:name=".Bienvenida"
-            android:theme="@style/Theme.Pcarga"
-            />
+            android:screenOrientation="locked"
+            android:theme="@style/Theme.Pcarga" />
         <activity
             android:name=".Registro"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.Pcarga" />
         <activity
             android:name=".PantallaInicio"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.Pcarga" />
         <activity
             android:name=".PantallaCarga"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.Pcarga">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

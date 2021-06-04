@@ -8,12 +8,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class Bienvenida extends AppCompatActivity {
 
     ImageView img;
     TextView txt;
     Bundle bundle;
-
+    ConsultasSQL consulta = new ConsultasSQL();
+    ArrayList<Platillo> platillos = new ArrayList<Platillo>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
