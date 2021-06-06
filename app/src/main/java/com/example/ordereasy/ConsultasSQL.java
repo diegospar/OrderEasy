@@ -19,6 +19,7 @@ import java.util.HashMap;
 public class ConsultasSQL {
         public String respuesta ="Categoría";
         public Object objeto;
+        public Boolean existe;
 
 
 
@@ -115,6 +116,20 @@ public class ConsultasSQL {
             }
         });
         return respuesta;
+    }
+
+    public Boolean existeLaOrden(String idOrden, String idRestaurante){
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("ordenes").child(idRestaurante).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                respuesta = "ERROR";
+            }
+            else {
+                existe = task.getResult().hasChild(idOrden);
+            }
+        });
+        return existe;
     }
 
 
