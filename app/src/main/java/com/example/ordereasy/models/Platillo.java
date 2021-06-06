@@ -1,4 +1,4 @@
-package com.example.ordereasy;
+package com.example.ordereasy.models;
 
 public class Platillo {
     public String descripcion;
@@ -6,5 +6,5 @@ public class Platillo {
     public String nombre;
     public String precio;
     public Long estado;
-    int viewType;
+    public int viewType;
 }

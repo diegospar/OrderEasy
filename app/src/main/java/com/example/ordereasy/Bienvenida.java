@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ordereasy.models.Platillo;
+
 import java.util.ArrayList;
 
 public class Bienvenida extends AppCompatActivity {
