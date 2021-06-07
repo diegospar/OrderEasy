@@ -1,20 +1,12 @@
 package com.example.ordereasy;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+
+import static com.google.android.gms.tasks.Tasks.await;
 
 public class ConsultasSQL {
         public String respuesta ="Categoría";
@@ -32,19 +24,19 @@ public class ConsultasSQL {
     -platillos : Número de platillos
 
  */
-    public String categoría(String idRestaurante, String idCategoría, String campo){
+    public DataSnapshot categoría(String idRestaurante, String idCategoría, String campo) throws ExecutionException, InterruptedException {
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("categorias").child(idRestaurante).child(idCategoría).child(campo).get().addOnCompleteListener( task -> {
-            if (!task.isSuccessful()) {
-                respuesta = "ERROR";
-            }
-            else {
-                respuesta = task.getResult().getValue().toString();
-            }
-        });
-         return respuesta;
+        return await(mDatabase.child("categorias").child(idRestaurante).child(idCategoría).child(campo).get());
+    }
+
+
+    public DataSnapshot getFood(String idRestaurante) throws ExecutionException, InterruptedException {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        return await(mDatabase.child("platillos").child(idRestaurante).get());
     }
 
     /* Consultar restaurantes disponibles

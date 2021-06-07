@@ -1,6 +1,5 @@
 package com.example.ordereasy;
 
-import android.content.ClipData;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ordereasy.models.Platillo;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
