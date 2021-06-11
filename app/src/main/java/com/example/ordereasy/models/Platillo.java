@@ -8,4 +8,5 @@ public class Platillo {
     public String precio;
     public Long estado;
     public int viewType;
+    public boolean added = true;
 }

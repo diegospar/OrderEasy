@@ -34,13 +34,13 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+        holder.setIsRecyclable(false);
             if (getItemViewType(position) == 2) {
                 ((ViewHolderPlatillo) holder).setPlatillo(menús.get(position));
-                holder.setIsRecyclable(false);
+
             } else
                 ((ViewHolderCategoria) holder).setCategoria(menús.get(position));
-        holder.setIsRecyclable(false);
+
     }
 
     @Override
@@ -86,13 +86,23 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             nombre.setText(platillo.nombre);
             precio.setText("$" + platillo.precio);
             descripcion.setText(platillo.descripcion);
+            if (platillo.added){
+                botonQuitar.setVisibility(View.GONE);
+                botonAgregar.setVisibility(View.VISIBLE);
+            }else {
+                botonAgregar.setVisibility(View.GONE);
+                botonQuitar.setVisibility(View.VISIBLE);
+            }
+
             botonAgregar.setOnClickListener(v -> {
+                platillo.added = true;
                 Menu.orden.agregarPlatillo(platillo.nombre,platillo.precio,platillo.id, idcat);
                 botonAgregar.setVisibility(View.GONE);
                 botonQuitar.setVisibility(View.VISIBLE);
             });
 
             botonQuitar.setOnClickListener(v -> {
+                platillo.added = false;
                 botonQuitar.setVisibility(View.GONE);
                 botonAgregar.setVisibility(View.VISIBLE);
             });
