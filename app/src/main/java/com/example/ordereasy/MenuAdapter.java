@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private  ArrayList<Platillo> menús;
+    public String idcategoria = "";
 
     public MenuAdapter( ArrayList<Platillo> menú){
         this.menús = menú;
@@ -36,8 +37,10 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
             if (getItemViewType(position) == 2) {
                 ((ViewHolderPlatillo) holder).setPlatillo(menús.get(position));
+                holder.setIsRecyclable(false);
             } else
                 ((ViewHolderCategoria) holder).setCategoria(menús.get(position));
+        holder.setIsRecyclable(false);
     }
 
     @Override
@@ -50,19 +53,21 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
 
-    static class ViewHolderCategoria extends RecyclerView.ViewHolder{
+    class ViewHolderCategoria extends RecyclerView.ViewHolder{
         public TextView categoria;
         public ViewHolderCategoria(@NonNull View itemView) {
             super(itemView);
             categoria = itemView.findViewById(R.id.Categoria);
+
         }
 
         void setCategoria(Platillo menu){
             categoria.setText(menu.nombre);
+            idcategoria = menu.idCategoria;
         }
     }
 
-    static class ViewHolderPlatillo extends RecyclerView.ViewHolder {
+    class ViewHolderPlatillo extends RecyclerView.ViewHolder {
 
         public TextView nombre, precio, descripcion;
         public Button botonAgregar,botonQuitar;
@@ -77,23 +82,19 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
 
         void setPlatillo(Platillo platillo){
+            String idcat = idcategoria;
             nombre.setText(platillo.nombre);
             precio.setText("$" + platillo.precio);
             descripcion.setText(platillo.descripcion);
-            botonAgregar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    botonAgregar.setVisibility(View.GONE);
-                    botonQuitar.setVisibility(View.VISIBLE);
-                }
+            botonAgregar.setOnClickListener(v -> {
+                Menu.orden.agregarPlatillo(platillo.nombre,platillo.precio,platillo.id, idcat);
+                botonAgregar.setVisibility(View.GONE);
+                botonQuitar.setVisibility(View.VISIBLE);
             });
 
-            botonQuitar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    botonQuitar.setVisibility(View.GONE);
-                    botonAgregar.setVisibility(View.VISIBLE);
-                }
+            botonQuitar.setOnClickListener(v -> {
+                botonQuitar.setVisibility(View.GONE);
+                botonAgregar.setVisibility(View.VISIBLE);
             });
         }
 

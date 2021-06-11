@@ -41,7 +41,6 @@ public class PantallaInicio extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     public Orden orden;
-    EscrituraSQL escrituras = new EscrituraSQL();
     ConsultasSQL consultas = new ConsultasSQL();
 
 
@@ -54,8 +53,6 @@ public class PantallaInicio extends AppCompatActivity {
        CargarSlider();
        CargarImagenes();
 
-        consultas.mesa("R001", "M002", "estado");
-
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,10 +60,6 @@ public class PantallaInicio extends AppCompatActivity {
                 escanear();
             }
         });
-
-
-
-
     }
 
 
@@ -140,38 +133,55 @@ public class PantallaInicio extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        orden = new Orden("1,2,3,9",1,"M002", hour());
+        new Thread(() -> {
+            try {
+                if (result != null) {
+                    if (result.getContents() == null) {
 
-        if (result != null) {
-            if (result.getContents() == null) {
+                        Toast.makeText(PantallaInicio.this, "CANCELASTE EL ESCANEO", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if(result.getContents().substring(0,4).equals("OREA")){
+                            //  if(estaOcupado(restauranteQR(result.getContents()),mesaQR(result.getContents()))){
+                            Intent intent = new Intent(this, Registro.class);
+                            intent.putExtra("estado", consultas.getState(restauranteQR(result.getContents()),mesaQR(result.getContents())).getValue().toString()); //ocupada
+                            intent.putExtra("restauranteQR",restauranteQR(result.getContents()).toString());
+                            intent.putExtra("mesaQR", mesaQR(result.getContents()).toString());
 
-                Toast.makeText(PantallaInicio.this, "CANCELASTE EL ESCANEO", Toast.LENGTH_SHORT).show();
-            } else {
-               if(result.getContents().substring(0,4).equals("OREA")){
-                   if(estaOcupado(restauranteQR(result.getContents()),mesaQR(result.getContents()))){
-
-                       Toast.makeText(PantallaInicio.this, "CÓDIGO LEÍDO", Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
 
 
 
-                   }else{
+              /*   }else{
                        Intent intent = new Intent(this, Registro.class);
+                       intent.putExtra("estado", "1"); //disponible
                        intent.putExtra("restauranteQR",restauranteQR(result.getContents()).toString());
                        intent.putExtra("mesaQR", mesaQR(result.getContents()).toString());
 
                        startActivity(intent);
 
-                   }
-               }else {
-                   Toast.makeText(PantallaInicio.this,"CÓDIGO INVÁLIDO", Toast.LENGTH_SHORT).show();
-               }
+                   //}*/
+                        }else {
+                            Toast.makeText(PantallaInicio.this,"CÓDIGO INVÁLIDO", Toast.LENGTH_SHORT).show();
+                        }
 
+                    }
+
+                } else {
+                    super.onActivityResult(requestCode, resultCode, data);
+
+                }
+                runOnUiThread(() -> {
+
+                });
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+        }).start();
 
-        }
+
 
 
     }
@@ -181,15 +191,6 @@ public class PantallaInicio extends AppCompatActivity {
             return false;
         }else
             return true;
-
-    }
-
-
-    public String hour(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-        String dateformatted = dateFormat.format(date);
-        return dateformatted;
 
     }
 

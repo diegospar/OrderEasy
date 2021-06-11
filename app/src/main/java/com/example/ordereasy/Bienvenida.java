@@ -25,7 +25,10 @@ public class Bienvenida extends AppCompatActivity {
         setContentView(R.layout.activity_bienvenida);
         bundle= getIntent().getExtras();
         txt = findViewById(R.id.textView3);
-        String codigoQR = bundle.getString("codigoQR");
+        String restauranteQR = bundle.getString("restauranteQR");
+        String mesaQR = bundle.getString("mesaQR");
+
+
 
         txt.setText(bundle.getString("nombre") + " ¡");
 
@@ -34,12 +37,14 @@ public class Bienvenida extends AppCompatActivity {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openNewActivity();
+                openNewActivity(mesaQR,restauranteQR);
             }
         });
     }
-    public void openNewActivity(){
+    public void openNewActivity(String mesaQR, String restauranteQR){
         Intent intent = new Intent(this, Menu.class);
+        intent.putExtra("mesaQR", mesaQR);
+        intent.putExtra("restauranteQR",restauranteQR);
         startActivity(intent);
     }
 }

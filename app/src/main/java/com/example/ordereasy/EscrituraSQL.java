@@ -10,33 +10,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.ExecutionException;
+
+import static com.google.android.gms.tasks.Tasks.await;
+
 public class EscrituraSQL {
     public int idOrden;
 
 
-    public void mesa(String restaurante, String mesa, String campo, String valor){
+    public void mesa(String restaurante, String mesa, String campo, int valor){
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("mesas").child(restaurante).child(mesa).child(campo).setValue(valor);
+        if (campo.equals("id_mesa")) {
+            mDatabase.child("mesas").child(restaurante).child(mesa).child(campo).setValue(String.valueOf(valor));
+        }else {mDatabase.child("mesas").child(restaurante).child(mesa).child(campo).setValue(valor);}
 
     }
 
-    public void orden(String restaurante, Orden orden){
+    public void orden(OrdenFirebase orden, String idRestaurante, String ordenID) throws ExecutionException, InterruptedException {
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        mDatabase.child("ordenes").child(restaurante).get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                idOrden = 500;
-            }
-            else {
-               idOrden = Integer.parseInt(String.valueOf(task.getResult().getChildrenCount() + 1));
-                mDatabase.child("ordenes").child(restaurante).child("O029").setValue(orden);
-            }
-        });
-
-
-
+       await(mDatabase.child("ordenes").child(idRestaurante).child(ordenID).setValue(orden));
     }
 
 

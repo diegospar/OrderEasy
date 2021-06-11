@@ -13,4 +13,6 @@
     <string name="mensaje_contraseña">Su nombre será su contraseña en caso de necesitar volver a
     ingresar o ingresar desde otro dispositivo, asegurese de recordar cómo lo escribió.
     </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

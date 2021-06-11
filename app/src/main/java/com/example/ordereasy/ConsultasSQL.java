@@ -39,6 +39,13 @@ public class ConsultasSQL {
         return await(mDatabase.child("platillos").child(idRestaurante).get());
     }
 
+    public DataSnapshot getState(String idRestaurante, String idMesa) throws ExecutionException, InterruptedException {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        return await(mDatabase.child("mesas").child(idRestaurante).child(idMesa).child("estado").get());
+    }
+
     /* Consultar restaurantes disponibles
 
         *Campos disponibles*
@@ -110,19 +117,13 @@ public class ConsultasSQL {
         return respuesta;
     }
 
-    public Boolean existeLaOrden(String idOrden, String idRestaurante){
+    public DataSnapshot existeLaOrden(String idRestaurante) throws ExecutionException, InterruptedException {
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("ordenes").child(idRestaurante).get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                respuesta = "ERROR";
-            }
-            else {
-                existe = task.getResult().hasChild(idOrden);
-            }
-        });
-        return existe;
+        return await(mDatabase.child("ordenes").child(idRestaurante).get());
     }
+
+
 
 
 }
