@@ -103,6 +103,7 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
             botonQuitar.setOnClickListener(v -> {
                 platillo.added = true;
+                Menu.orden.eliminaPlatillo(platillo.id, platillo.idCategoria);
                 botonQuitar.setVisibility(View.GONE);
                 botonAgregar.setVisibility(View.VISIBLE);
             });

@@ -81,6 +81,16 @@ public class Orden {
         this.carrito.add(agrega);
     }
 
+    public void eliminaPlatillo(String id, String cat){
+
+        for (int i = 0; i < this.carrito.size(); i++) {
+            if (this.carrito.get(i).id.equals(id) && this .carrito.get(i).cat.equals(cat)){
+                this.carrito.remove(i);
+            }
+
+        }
+    }
+
 
 
     public void registraOrden(Orden orden){
