@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -22,14 +23,7 @@ public class PantallaCarga extends AppCompatActivity {
         ImageView r1 = findViewById(R.id.Rest1);
 
         img= findViewById(R.id.imageView2);
-
-        img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openNewActivity();
-            }
-        });
-
+        (new Handler()).postDelayed(this::openNewActivity, 3000);
     }
     public void openNewActivity(){
         Intent intent = new Intent(this, PantallaInicio.class);

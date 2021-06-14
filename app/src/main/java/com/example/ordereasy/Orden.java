@@ -26,9 +26,10 @@ public class Orden {
     public String observaciones;
     public String id;
     public String idRestaurante;
+    public String total;
 
-    public Orden(){
-
+    public Orden(String idRestaurante){
+        this.generaId(idRestaurante);
     }
 
     public Orden(String platillos, int estado, String mesa, String hora){
@@ -79,18 +80,30 @@ public class Orden {
         Carrito agrega = new Carrito(nombre, precio, id, categoria);
         this.carrito.add(agrega);
     }
+
+
+
     public void registraOrden(Orden orden){
         orden.fecha = date();
         orden.hora = hour();
         for (int i= 0; i<orden.carrito.size(); i++ ) {
             if (orden.platillos.equals("")){
                 orden.platillos = orden.carrito.get(i).cat + orden.carrito.get(i).id;
+                if(Integer.parseInt(orden.carrito.get(i).cant)!=1){
+                    for (int j = 1; j< Integer.parseInt(orden.carrito.get(i).cant); j++){
+                    orden.platillos = orden.platillos + "," + orden.carrito.get(i).cat + orden.carrito.get(i).id;
+                    }
+                }
             }else{
             orden.platillos = orden.platillos + "," + orden.carrito.get(i).cat + orden.carrito.get(i).id;
+                if(Integer.parseInt(orden.carrito.get(i).cant)!=1){
+                    for (int j = 1; j< Integer.parseInt(orden.carrito.get(i).cant); j++){
+                        orden.platillos = orden.platillos + "," + orden.carrito.get(i).cat + orden.carrito.get(i).id;
+                    }
+                }
             }
         }
         orden.estado = 0;
-       orden.generaId(orden.idRestaurante);
 
 
     }
@@ -111,7 +124,6 @@ public class Orden {
     }
 
     public void ordenToFirebase(OrdenFirebase ordenFirebase){
-
         ordenFirebase.estado = this.estado;
         ordenFirebase.fecha=this.fecha;
         ordenFirebase.hora = this.hora;
@@ -119,21 +131,9 @@ public class Orden {
         ordenFirebase.observaciones = this.observaciones;
         ordenFirebase.id = this.id;
         ordenFirebase.platillos = this.platillos;
-
-
-    }
-
-
-    public void limpiarOrden(){
-        this.fecha = null;
-        this.hora = null;
-        this.mesa = null;
-        this.observaciones = null;
-        this.id = null;
-        this.platillos = null;
-        this.estado = 0;
-        this.carrito = null;
+        ordenFirebase.total = this.total;
 
     }
+
 
 }

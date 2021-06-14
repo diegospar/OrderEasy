@@ -33,6 +33,48 @@ public class EscrituraSQL {
        await(mDatabase.child("ordenes").child(idRestaurante).child(ordenID).setValue(orden));
     }
 
+    public void sesion(String idRestaurante, String idMesa, String campo, String valor){
+
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("sesiones").child(idRestaurante).child(idMesa).child("S001").child(campo).setValue(valor);
+    }
+
+    public void atencionMesa(String restaurante, String mesa) {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("mesas").child(restaurante).child(mesa).child("atencion").setValue(1);
+    }
+
+    public void eliminaOrden(String idRestaurante, String ordenID) {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("ordenes").child(idRestaurante).child(ordenID).setValue(null);
+    }
+
+    public void remplazaOrdenes(String idRestaurante, String idMesa, String ordenes) {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("sesiones").child(idRestaurante).child(idMesa).child("S001").child("ordenes").setValue(ordenes);
+    }
+
+    public void remplazaTotal(String idRestaurante, String idMesa, String total) {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("sesiones").child(idRestaurante).child(idMesa).child("S001").child("total").setValue(total);
+    }
+
+    public void ticket(String idRestaurante, String idTicket, DatosTicket ticket) {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("tickets").child(idRestaurante).child(idTicket).setValue(ticket);
+    }
+
+    public void efectivoMesa(String restaurante, String mesa) {
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("mesas").child(restaurante).child(mesa).child("pago_efectivo").setValue(1);
+    }
 
 
 }

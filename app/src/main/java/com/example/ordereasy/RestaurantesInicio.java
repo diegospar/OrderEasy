@@ -51,5 +51,10 @@ public class RestaurantesInicio {
         return slideModels;
     }
 
+    public static final String nombreRestaurante(String idRestaurante){
+        if ((idRestaurante.equals("R001"))){
+            return "Hortenza";
+        }else return "Restaurante";
+    }
 
 }

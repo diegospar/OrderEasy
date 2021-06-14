@@ -95,14 +95,14 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }
 
             botonAgregar.setOnClickListener(v -> {
-                platillo.added = true;
-                Menu.orden.agregarPlatillo(platillo.nombre,platillo.precio,platillo.id, idcat);
+                platillo.added = false;
+                Menu.orden.agregarPlatillo(platillo.nombre,platillo.precio,platillo.id, platillo.idCategoria);
                 botonAgregar.setVisibility(View.GONE);
                 botonQuitar.setVisibility(View.VISIBLE);
             });
 
             botonQuitar.setOnClickListener(v -> {
-                platillo.added = false;
+                platillo.added = true;
                 botonQuitar.setVisibility(View.GONE);
                 botonAgregar.setVisibility(View.VISIBLE);
             });

@@ -14,6 +14,7 @@ public class OrdenFirebase {
     public String fecha;
     public String observaciones;
     public String id;
+    public String total;
 
     public OrdenFirebase(){
 

@@ -137,31 +137,25 @@ public class PantallaInicio extends AppCompatActivity {
             try {
                 if (result != null) {
                     if (result.getContents() == null) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(PantallaInicio.this, "CANCELASTE EL ESCANEO", Toast.LENGTH_SHORT).show();
+                        });
 
-                        Toast.makeText(PantallaInicio.this, "CANCELASTE EL ESCANEO", Toast.LENGTH_SHORT).show();
+
                     } else {
-                        if(result.getContents().substring(0,4).equals("OREA")){
-                            //  if(estaOcupado(restauranteQR(result.getContents()),mesaQR(result.getContents()))){
+                        if (result.getContents().substring(0, 4).equals("OREA")) {
                             Intent intent = new Intent(this, Registro.class);
-                            intent.putExtra("estado", consultas.getState(restauranteQR(result.getContents()),mesaQR(result.getContents())).getValue().toString()); //ocupada
-                            intent.putExtra("restauranteQR",restauranteQR(result.getContents()).toString());
+                            intent.putExtra("estado", consultas.getState(restauranteQR(result.getContents()), mesaQR(result.getContents())).getValue().toString()); //ocupada
+                            intent.putExtra("restauranteQR", restauranteQR(result.getContents()).toString());
                             intent.putExtra("mesaQR", mesaQR(result.getContents()).toString());
 
                             startActivity(intent);
+                        } else {
+                            runOnUiThread(() -> {
+                                Toast.makeText(PantallaInicio.this, "CÓDIGO INVÁLIDO", Toast.LENGTH_SHORT).show();
+                            });
 
 
-
-              /*   }else{
-                       Intent intent = new Intent(this, Registro.class);
-                       intent.putExtra("estado", "1"); //disponible
-                       intent.putExtra("restauranteQR",restauranteQR(result.getContents()).toString());
-                       intent.putExtra("mesaQR", mesaQR(result.getContents()).toString());
-
-                       startActivity(intent);
-
-                   //}*/
-                        }else {
-                            Toast.makeText(PantallaInicio.this,"CÓDIGO INVÁLIDO", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -180,10 +174,6 @@ public class PantallaInicio extends AppCompatActivity {
             }
 
         }).start();
-
-
-
-
     }
     public boolean estaOcupado(String restaurante, String mesa){
 
@@ -200,6 +190,10 @@ public class PantallaInicio extends AppCompatActivity {
 
     public String mesaQR(String codigoQR){
         return codigoQR.substring(8);
+    }
+
+    public void onBackPressed() {
+        // Do Here what ever you want do on back press;
     }
 
 }

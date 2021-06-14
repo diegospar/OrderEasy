@@ -5,7 +5,7 @@ public class Carrito {
     String nombre;
     String id;
     String cat;
-    String cant;
+    public String cant;
 
     Carrito(String nombre, String precio, String id, String categoria){
         this.precio = precio;
