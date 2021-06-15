@@ -27,9 +27,9 @@ public class Registro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
-        View mensaje = findViewById(R.id.layout_mensaje);
+        View mensaje = findViewById(R.id.layout_mensajeSalida);
         Button boton = findViewById(R.id.button);
-        Button boton2 = findViewById(R.id.aceptarPago);
+        Button boton2 = findViewById(R.id.buttonSalir);
         EditText nombre = findViewById(R.id.editTextTextPersonName);
         TextView textoMensaje = findViewById(R.id.textoMensaje);
 
@@ -134,9 +134,9 @@ public class Registro extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         setContentView(R.layout.activity_registro);
-        View mensaje = findViewById(R.id.layout_mensaje);
+        View mensaje = findViewById(R.id.layout_mensajeSalida);
         Button boton = findViewById(R.id.button);
-        Button boton2 = findViewById(R.id.aceptarPago);
+        Button boton2 = findViewById(R.id.buttonSalir);
         EditText nombre = findViewById(R.id.editTextTextPersonName);
         TextView textoMensaje = findViewById(R.id.textoMensaje);
 

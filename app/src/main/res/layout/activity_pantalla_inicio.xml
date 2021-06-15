@@ -29,12 +29,11 @@
                 android:gravity="center">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView2"
+                    android:id="@+id/CardViewR2"
                     android:layout_width="130dp"
                     android:layout_height="200dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardView">
 
@@ -61,13 +60,13 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/CardViewR4"
                     android:layout_width="130dp"
                     android:layout_height="200dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView2">
+                    app:layout_constraintTop_toBottomOf="@+id/cardViewR1">
 
                     <ImageView
                         android:id="@+id/Rest4"
@@ -92,13 +91,13 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/CardViewR3"
                     android:layout_width="130dp"
                     android:layout_height="200dp"
                     android:layout_marginStart="32dp"
-                    android:layout_marginLeft="32dp"
                     android:layout_marginTop="24dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardView2">
+                    app:layout_constraintTop_toBottomOf="@+id/cardViewR1">
 
                     <ImageView
                         android:id="@+id/Rest3"
@@ -152,7 +151,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardView2"
+                    android:id="@+id/cardViewR1"
                     android:layout_width="130dp"
                     android:layout_height="200dp"
                     android:layout_marginStart="32dp"

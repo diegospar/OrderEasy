@@ -5,20 +5,14 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
-import com.example.ordereasy.RestaurantesInicio.*;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ordereasy.models.Platillo;
 import com.google.firebase.database.DataSnapshot;
-
-import java.util.concurrent.ExecutionException;
 
 public class Sesion extends AppCompatActivity {
 
@@ -81,9 +75,9 @@ public class Sesion extends AppCompatActivity {
         vMTotal3 = findViewById(R.id.vMTotal3);
 
         principal= findViewById(R.id.principal);
-        mensaje = findViewById(R.id.layout_mensaje);
+        mensaje = findViewById(R.id.layout_mensajeSalida);
         cerrarMensaje = findViewById(R.id.cerrarMensaje);
-        aceptarPago= findViewById(R.id.aceptarPago);
+        aceptarPago= findViewById(R.id.buttonSalir);
         metodoDP = findViewById(R.id.radioGroup);
 
 

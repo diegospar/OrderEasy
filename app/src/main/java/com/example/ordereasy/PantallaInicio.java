@@ -3,8 +3,10 @@ package com.example.ordereasy;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,19 +44,47 @@ public class PantallaInicio extends AppCompatActivity {
     private DatabaseReference mDatabase;
     public Orden orden;
     ConsultasSQL consultas = new ConsultasSQL();
-
+    CardView r1, r2, r3, r4, r5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_inicio);
         ImageView img = findViewById(R.id.imageView3);
-
+        r1= findViewById(R.id.cardViewR1);
+        r2= findViewById(R.id.CardViewR2);
+        r3= findViewById(R.id.CardViewR3);
+        r4= findViewById(R.id.CardViewR4);
        CargarSlider();
        CargarImagenes();
 
+       r1.setOnClickListener(v -> {
+           Intent i = new Intent(Intent.ACTION_VIEW);
+           i.setData(Uri.parse("https://goo.gl/maps/FvWgiB9DyVj7r2qr5"));
+           startActivity(i);
+       });
+
+        r2.setOnClickListener(v -> {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse("https://goo.gl/maps/izAhqig7uBtfkEScA"));
+            startActivity(i);
+        });
+
+        r3.setOnClickListener(v -> {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse("https://g.page/thelibraryacoffeehouse?share"));
+            startActivity(i);
+        });
+
+        r4.setOnClickListener(v -> {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse("https://goo.gl/maps/jhXy52tQfQvF8vM57"));
+            startActivity(i);
+        });
+
         img.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
 
                 escanear();

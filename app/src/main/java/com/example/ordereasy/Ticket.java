@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,10 @@ public class Ticket extends AppCompatActivity {
         Bundle bundle;
         ConsultasSQL consultasSQL = new ConsultasSQL();
         EscrituraSQL escrituraSQL = new EscrituraSQL();
+        View mensajeSalida;
+        ImageView casa;
+        Button salir, quedarse;
+
         int numTickets;
         TextView hora, fecha, mesa, mensajePago, mensaje, aviso, totalT;
     @Override
@@ -40,6 +46,10 @@ public class Ticket extends AppCompatActivity {
         mensaje = findViewById(R.id.textViewMensaje);
         aviso = findViewById(R.id.Recibo);
         totalT = findViewById(R.id.textViewTotal);
+        casa = findViewById(R.id.imageInicio);
+        salir = findViewById(R.id.buttonSalir);
+        quedarse = findViewById(R.id.buttonRegresar);
+        mensajeSalida = findViewById(R.id.layout_mensajeSalida);
 
         bundle = getIntent().getExtras();
         total = String.valueOf(bundle.getString("total"));
@@ -59,6 +69,21 @@ public class Ticket extends AppCompatActivity {
             mensaje.setText("Efectúe su pago");
             escrituraSQL.efectivoMesa(restauranteQR,mesaQR);
         }
+
+        casa.setOnClickListener(v -> {
+            mensajeSalida.setVisibility(View.VISIBLE);
+        });
+
+        salir.setOnClickListener(v -> {
+            Intent intent = new Intent(Ticket.this, PantallaInicio.class);
+            startActivity(intent);
+        });
+
+        quedarse.setOnClickListener(v -> {
+            mensajeSalida.setVisibility(View.GONE);
+        });
+
+
 
         new Thread(() -> {
             try {

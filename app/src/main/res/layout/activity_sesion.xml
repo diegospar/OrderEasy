@@ -682,7 +682,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_mensaje"
+        android:id="@+id/layout_mensajeSalida"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#92938E8E"
@@ -709,7 +709,7 @@
                 android:padding="4dp">
 
                 <Button
-                    android:id="@+id/aceptarPago"
+                    android:id="@+id/buttonSalir"
                     style="@style/Widget.AppCompat.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
