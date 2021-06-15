@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.example.ordereasy.models.Platillo;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -867,6 +870,43 @@ public class Menu extends AppCompatActivity {
                         }
                     });
 
+                    platillo6.setVisibility(View.VISIBLE);
+                    nombrePlatillo6.setText(orden.carrito.get(5).nombre);
+                    precio6.setText("$" + orden.carrito.get(5).precio);
+                    cantidad6.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==6) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(5).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad6.setText("1"); //cambiar cantidad
+                                    }
+                                    orden.carrito.get(5).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(5).precio);
+                                    }
+                                    precio6.setText("$" + String.valueOf(total)); //cambiar precio
+
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
                     int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
                             (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
                             (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
@@ -878,9 +918,964 @@ public class Menu extends AppCompatActivity {
 
                 }else if(orden.carrito.size()==7){
 
+                    platillo1.setVisibility(View.VISIBLE);
+                    nombrePlatillo1.setText(orden.carrito.get(0).nombre);
+                    precio1.setText("$" + orden.carrito.get(0).precio);
+                    cantidad1.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==7) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(0).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad1.setText("1");
+                                    }
+                                    orden.carrito.get(0).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(0).precio);
+                                    }
+                                    precio1.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo2.setVisibility(View.VISIBLE);
+                    nombrePlatillo2.setText(orden.carrito.get(1).nombre);
+                    precio2.setText("$" + orden.carrito.get(1).precio);
+                    cantidad2.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==7) { // igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(1).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad2.setText("1");
+                                    }
+                                    orden.carrito.get(1).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(1).precio);
+                                    }
+                                    precio2.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo3.setVisibility(View.VISIBLE);
+                    nombrePlatillo3.setText(orden.carrito.get(2).nombre);
+                    precio3.setText("$" + orden.carrito.get(2).precio);
+                    cantidad3.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==7) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(2).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad3.setText("1");
+                                    }
+                                    orden.carrito.get(2).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(2).precio);
+                                    }
+                                    precio3.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo4.setVisibility(View.VISIBLE);
+                    nombrePlatillo4.setText(orden.carrito.get(3).nombre);
+                    precio4.setText("$" + orden.carrito.get(3).precio);
+                    cantidad4.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==7) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(3).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad4.setText("1");
+                                    }
+                                    orden.carrito.get(3).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(3).precio);
+                                    }
+                                    precio4.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo5.setVisibility(View.VISIBLE);
+                    nombrePlatillo5.setText(orden.carrito.get(4).nombre);
+                    precio5.setText("$" + orden.carrito.get(4).precio);
+                    cantidad5.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==7) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(4).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad5.setText("1");
+                                    }
+                                    orden.carrito.get(4).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(4).precio);
+                                    }
+                                    precio5.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo6.setVisibility(View.VISIBLE);
+                    nombrePlatillo6.setText(orden.carrito.get(5).nombre);
+                    precio6.setText("$" + orden.carrito.get(5).precio);
+                    cantidad6.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==7) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(5).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad6.setText("1"); //cambiar cantidad
+                                    }
+                                    orden.carrito.get(5).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(5).precio);
+                                    }
+                                    precio6.setText("$" + String.valueOf(total)); //cambiar precio
+
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo7.setVisibility(View.VISIBLE);
+                    nombrePlatillo7.setText(orden.carrito.get(6).nombre);//cambiar index
+                    precio7.setText("$" + orden.carrito.get(6).precio);//cambiar index
+                    cantidad7.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==7) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(6).precio);//cambiar index
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad7.setText("1"); //cambiar cantidad
+                                    }
+                                    orden.carrito.get(6).cant = s.toString();//cambiar index
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(6).precio); //cambiar index
+                                    }
+                                    precio7.setText("$" + String.valueOf(total)); //cambiar precio
+
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant));
+                    orden.total= String.valueOf(suma);
+                    totalText.setText("Total: $" + String.valueOf(suma));
+
                 }else if(orden.carrito.size()==8){
 
+                    platillo1.setVisibility(View.VISIBLE);
+                    nombrePlatillo1.setText(orden.carrito.get(0).nombre);
+                    precio1.setText("$" + orden.carrito.get(0).precio);
+                    cantidad1.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==8) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(0).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad1.setText("1");
+                                    }
+                                    orden.carrito.get(0).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(0).precio);
+                                    }
+                                    precio1.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo2.setVisibility(View.VISIBLE);
+                    nombrePlatillo2.setText(orden.carrito.get(1).nombre);
+                    precio2.setText("$" + orden.carrito.get(1).precio);
+                    cantidad2.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==8) { // igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(1).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad2.setText("1");
+                                    }
+                                    orden.carrito.get(1).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(1).precio);
+                                    }
+                                    precio2.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo3.setVisibility(View.VISIBLE);
+                    nombrePlatillo3.setText(orden.carrito.get(2).nombre);
+                    precio3.setText("$" + orden.carrito.get(2).precio);
+                    cantidad3.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==8) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(2).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad3.setText("1");
+                                    }
+                                    orden.carrito.get(2).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(2).precio);
+                                    }
+                                    precio3.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo4.setVisibility(View.VISIBLE);
+                    nombrePlatillo4.setText(orden.carrito.get(3).nombre);
+                    precio4.setText("$" + orden.carrito.get(3).precio);
+                    cantidad4.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==8) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(3).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad4.setText("1");
+                                    }
+                                    orden.carrito.get(3).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(3).precio);
+                                    }
+                                    precio4.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo5.setVisibility(View.VISIBLE);
+                    nombrePlatillo5.setText(orden.carrito.get(4).nombre);
+                    precio5.setText("$" + orden.carrito.get(4).precio);
+                    cantidad5.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==8) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(4).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad5.setText("1");
+                                    }
+                                    orden.carrito.get(4).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(4).precio);
+                                    }
+                                    precio5.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo6.setVisibility(View.VISIBLE);
+                    nombrePlatillo6.setText(orden.carrito.get(5).nombre);
+                    precio6.setText("$" + orden.carrito.get(5).precio);
+                    cantidad6.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==8) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(5).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad6.setText("1"); //cambiar cantidad
+                                    }
+                                    orden.carrito.get(5).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(5).precio);
+                                    }
+                                    precio6.setText("$" + String.valueOf(total)); //cambiar precio
+
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo7.setVisibility(View.VISIBLE);
+                    nombrePlatillo7.setText(orden.carrito.get(6).nombre);//cambiar index
+                    precio7.setText("$" + orden.carrito.get(6).precio);//cambiar index
+                    cantidad7.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==8) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(6).precio);//cambiar index
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad7.setText("1"); //cambiar cantidad
+                                    }
+                                    orden.carrito.get(6).cant = s.toString();//cambiar index
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(6).precio); //cambiar index
+                                    }
+                                    precio7.setText("$" + String.valueOf(total)); //cambiar precio
+
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo8.setVisibility(View.VISIBLE);
+                    nombrePlatillo8.setText(orden.carrito.get(7).nombre);//cambiar index
+                    precio8.setText("$" + orden.carrito.get(7).precio);//cambiar index
+                    cantidad8.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==8) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(7).precio);//cambiar index
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad8.setText("1"); //cambiar cantidad
+                                    }
+                                    orden.carrito.get(7).cant = s.toString();//cambiar index
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(7).precio); //cambiar index
+                                    }
+                                    precio8.setText("$" + String.valueOf(total)); //cambiar precio
+
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant));
+                    orden.total= String.valueOf(suma);
+                    totalText.setText("Total: $" + String.valueOf(suma));
+
                 }else if(orden.carrito.size()==9){
+                    platillo1.setVisibility(View.VISIBLE);
+                    nombrePlatillo1.setText(orden.carrito.get(0).nombre);
+                    precio1.setText("$" + orden.carrito.get(0).precio);
+                    cantidad1.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==9) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(0).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad1.setText("1");
+                                    }
+                                    orden.carrito.get(0).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(0).precio);
+                                    }
+                                    precio1.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(8).precio)* Integer.parseInt(orden.carrito.get(8).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo2.setVisibility(View.VISIBLE);
+                    nombrePlatillo2.setText(orden.carrito.get(1).nombre);
+                    precio2.setText("$" + orden.carrito.get(1).precio);
+                    cantidad2.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==9) { // igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(1).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad2.setText("1");
+                                    }
+                                    orden.carrito.get(1).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(1).precio);
+                                    }
+                                    precio2.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(8).precio)* Integer.parseInt(orden.carrito.get(8).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo3.setVisibility(View.VISIBLE);
+                    nombrePlatillo3.setText(orden.carrito.get(2).nombre);
+                    precio3.setText("$" + orden.carrito.get(2).precio);
+                    cantidad3.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==9) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(2).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad3.setText("1");
+                                    }
+                                    orden.carrito.get(2).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(2).precio);
+                                    }
+                                    precio3.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(8).precio)* Integer.parseInt(orden.carrito.get(8).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo4.setVisibility(View.VISIBLE);
+                    nombrePlatillo4.setText(orden.carrito.get(3).nombre);
+                    precio4.setText("$" + orden.carrito.get(3).precio);
+                    cantidad4.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==9) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(3).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad4.setText("1");
+                                    }
+                                    orden.carrito.get(3).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(3).precio);
+                                    }
+                                    precio4.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(8).precio)* Integer.parseInt(orden.carrito.get(8).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo5.setVisibility(View.VISIBLE);
+                    nombrePlatillo5.setText(orden.carrito.get(4).nombre);
+                    precio5.setText("$" + orden.carrito.get(4).precio);
+                    cantidad5.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==9) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(4).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad5.setText("1");
+                                    }
+                                    orden.carrito.get(4).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(4).precio);
+                                    }
+                                    precio5.setText("$" + String.valueOf(total));
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(8).precio)* Integer.parseInt(orden.carrito.get(8).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo6.setVisibility(View.VISIBLE);
+                    nombrePlatillo6.setText(orden.carrito.get(5).nombre);
+                    precio6.setText("$" + orden.carrito.get(5).precio);
+                    cantidad6.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==9) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(5).precio);
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad6.setText("1"); //cambiar cantidad
+                                    }
+                                    orden.carrito.get(5).cant = s.toString();
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(5).precio);
+                                    }
+                                    precio6.setText("$" + String.valueOf(total)); //cambiar precio
+
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(8).precio)* Integer.parseInt(orden.carrito.get(8).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo7.setVisibility(View.VISIBLE);
+                    nombrePlatillo7.setText(orden.carrito.get(6).nombre);//cambiar index
+                    precio7.setText("$" + orden.carrito.get(6).precio);//cambiar index
+                    cantidad7.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==9) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(6).precio);//cambiar index
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad7.setText("1"); //cambiar cantidad
+                                    }
+                                    orden.carrito.get(6).cant = s.toString();//cambiar index
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(6).precio); //cambiar index
+                                    }
+                                    precio7.setText("$" + String.valueOf(total)); //cambiar precio
+
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(8).precio)* Integer.parseInt(orden.carrito.get(8).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo8.setVisibility(View.VISIBLE);
+                    nombrePlatillo8.setText(orden.carrito.get(7).nombre);//cambiar index
+                    precio8.setText("$" + orden.carrito.get(7).precio);//cambiar index
+                    cantidad8.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==9) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(7).precio);//cambiar index
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad8.setText("1"); //cambiar cantidad
+                                    }
+                                    orden.carrito.get(7).cant = s.toString();//cambiar index
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(7).precio); //cambiar index
+                                    }
+                                    precio8.setText("$" + String.valueOf(total)); //cambiar precio
+
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(8).precio)* Integer.parseInt(orden.carrito.get(8).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    platillo9.setVisibility(View.VISIBLE);
+                    nombrePlatillo9.setText(orden.carrito.get(8).nombre);//cambiar index
+                    precio9.setText("$" + orden.carrito.get(8).precio);//cambiar index
+                    cantidad9.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            if(orden.carrito.size()==9) { //va igual que el else if
+                                int total = Integer.parseInt(orden.carrito.get(8).precio);//cambiar index
+                                if (!s.toString().equals("")) {
+                                    if (Integer.parseInt(s.toString()) == 0) {
+                                        cantidad9.setText("1"); //cambiar cantidad
+                                    }
+                                    orden.carrito.get(8).cant = s.toString();//cambiar index
+                                    for (int i = 1; i < Integer.parseInt(s.toString()); i++) {
+                                        total = total + Integer.parseInt(orden.carrito.get(8).precio); //cambiar index
+                                    }
+                                    precio9.setText("$" + String.valueOf(total)); //cambiar precio
+
+                                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant)) +
+                                            (Integer.parseInt(orden.carrito.get(8).precio)* Integer.parseInt(orden.carrito.get(8).cant));
+                                    orden.total = String.valueOf(suma);
+                                    totalText.setText("Total: $" + String.valueOf(suma));
+                                }
+                            }
+                        }
+                    });
+
+                    int suma = (Integer.parseInt(orden.carrito.get(0).precio) * Integer.parseInt(orden.carrito.get(0).cant))+
+                            (Integer.parseInt(orden.carrito.get(1).precio)* Integer.parseInt(orden.carrito.get(1).cant)) +
+                            (Integer.parseInt(orden.carrito.get(2).precio)* Integer.parseInt(orden.carrito.get(2).cant)) +
+                            (Integer.parseInt(orden.carrito.get(3).precio)* Integer.parseInt(orden.carrito.get(3).cant)) +
+                            (Integer.parseInt(orden.carrito.get(4).precio)* Integer.parseInt(orden.carrito.get(4).cant)) +
+                            (Integer.parseInt(orden.carrito.get(5).precio)* Integer.parseInt(orden.carrito.get(5).cant)) +
+                            (Integer.parseInt(orden.carrito.get(6).precio)* Integer.parseInt(orden.carrito.get(6).cant)) +
+                            (Integer.parseInt(orden.carrito.get(7).precio)* Integer.parseInt(orden.carrito.get(7).cant)) +
+                            (Integer.parseInt(orden.carrito.get(8).precio)* Integer.parseInt(orden.carrito.get(8).cant));
+                    orden.total= String.valueOf(suma);
+                    totalText.setText("Total: $" + String.valueOf(suma));
 
                 }else if(orden.carrito.size()==10){
 
@@ -932,6 +1927,79 @@ public class Menu extends AppCompatActivity {
 
 
         new Thread(() -> {
+
+
+     /////////////////////////////////////////////////////////////////////////////////
+                     /////PRUEBA///////
+
+
+
+
+            /*
+
+
+
+
+
+
+            consultasSQL.getPlatillosRestaurante(idRestaurante).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try {
+                        runOnUiThread(() -> {
+                            progressBar.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.GONE);
+                        });
+                        //DataSnapshot data = consultasSQL.getFood(idRestaurante);
+                        menu.clear();
+                        for (DataSnapshot category: snapshot.getChildren()) {
+                            DataSnapshot categoryData = consultasSQL.categoría(idRestaurante, category.getKey(),"nombre_cat") ;
+                            Platillo mCategoria = new Platillo();
+                            mCategoria.nombre = categoryData.getValue().toString();
+                            mCategoria.idCategoria = category.getKey().toString();
+                            mCategoria.viewType = 1;
+                            menu.add(mCategoria);
+
+                            for (DataSnapshot platillo: category.getChildren()) {
+                                Platillo tempFood = platillo.getValue(Platillo.class);
+                                if (tempFood.estado.equals(Long.valueOf(1))){
+                                    tempFood.idCategoria=mCategoria.idCategoria;
+                                    tempFood.viewType = 2;
+                                    menu.add(tempFood);
+                                }
+                            }
+                        }
+                        runOnUiThread(() -> {
+                            recyclerView.setAdapter(new MenuAdapter(menu));
+                            progressBar.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
+                        });
+
+                    } catch (Exception e) {
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
+
+
+            */
+
+
+            ////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
             try {
                 runOnUiThread(() -> {
                     progressBar.setVisibility(View.VISIBLE);
@@ -949,9 +2017,11 @@ public class Menu extends AppCompatActivity {
 
                     for (DataSnapshot platillo: category.getChildren()) {
                         Platillo tempFood = platillo.getValue(Platillo.class);
-                        tempFood.idCategoria=mCategoria.idCategoria;
-                        tempFood.viewType = 2;
-                        menu.add(tempFood);
+                        if (tempFood.estado.equals(Long.valueOf(1))){
+                            tempFood.idCategoria=mCategoria.idCategoria;
+                            tempFood.viewType = 2;
+                            menu.add(tempFood);
+                        }
                     }
                 }
                 runOnUiThread(() -> {
