@@ -1925,8 +1925,50 @@ public class Menu extends AppCompatActivity {
             finish();
         });
 
+        consultasSQL.getPlatillosRestaurante(idRestaurante).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-        new Thread(() -> {
+                progressBar.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+                //DataSnapshot data = consultasSQL.getFood(idRestaurante);
+                menu.clear();
+                for (DataSnapshot category : snapshot.getChildren()) {
+                    new Thread(() -> {
+                        try {
+                            DataSnapshot categoryData = consultasSQL.categoría(idRestaurante, category.getKey(), "nombre_cat");
+                            Platillo mCategoria = new Platillo();
+                            mCategoria.nombre = categoryData.getValue().toString();
+                            mCategoria.idCategoria = category.getKey().toString();
+                            mCategoria.viewType = 1;
+                            menu.add(mCategoria);
+
+                            for (DataSnapshot platillo : category.getChildren()) {
+                                Platillo tempFood = platillo.getValue(Platillo.class);
+                                if (tempFood.estado.equals(Long.valueOf(1))) {
+                                    tempFood.idCategoria = mCategoria.idCategoria;
+                                    tempFood.viewType = 2;
+                                    menu.add(tempFood);
+                                }
+                            }
+
+                            runOnUiThread(() -> {
+                                recyclerView.setAdapter(new MenuAdapter(menu));
+                                progressBar.setVisibility(View.GONE);
+                                recyclerView.setVisibility(View.VISIBLE);
+                            });
+                        } catch (Exception e) {
+                            Log.e("MENU", "onDataChange: Error al refrescar el menu");
+                        }
+                    }).start();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
      /////////////////////////////////////////////////////////////////////////////////
@@ -1935,61 +1977,19 @@ public class Menu extends AppCompatActivity {
 
 
 
-            /*
 
 
 
 
 
 
-            consultasSQL.getPlatillosRestaurante(idRestaurante).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    try {
-                        runOnUiThread(() -> {
-                            progressBar.setVisibility(View.VISIBLE);
-                            recyclerView.setVisibility(View.GONE);
-                        });
-                        //DataSnapshot data = consultasSQL.getFood(idRestaurante);
-                        menu.clear();
-                        for (DataSnapshot category: snapshot.getChildren()) {
-                            DataSnapshot categoryData = consultasSQL.categoría(idRestaurante, category.getKey(),"nombre_cat") ;
-                            Platillo mCategoria = new Platillo();
-                            mCategoria.nombre = categoryData.getValue().toString();
-                            mCategoria.idCategoria = category.getKey().toString();
-                            mCategoria.viewType = 1;
-                            menu.add(mCategoria);
-
-                            for (DataSnapshot platillo: category.getChildren()) {
-                                Platillo tempFood = platillo.getValue(Platillo.class);
-                                if (tempFood.estado.equals(Long.valueOf(1))){
-                                    tempFood.idCategoria=mCategoria.idCategoria;
-                                    tempFood.viewType = 2;
-                                    menu.add(tempFood);
-                                }
-                            }
-                        }
-                        runOnUiThread(() -> {
-                            recyclerView.setAdapter(new MenuAdapter(menu));
-                            progressBar.setVisibility(View.GONE);
-                            recyclerView.setVisibility(View.VISIBLE);
-                        });
-
-                    } catch (Exception e) {
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
 
 
 
 
-            */
+
+
+
 
 
             ////////////////////////////////////////////////////////////////////
@@ -1998,7 +1998,7 @@ public class Menu extends AppCompatActivity {
 
 
 
-
+        new Thread(() -> {
 
             try {
                 runOnUiThread(() -> {
